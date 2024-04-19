@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "faction-wars"
+version = "0.1.0"
+description = ""
+authors = ["MariusSilviuHriscu <hriscumarius65536@gmail.com>"]
+readme = "README.md"
+packages = [{include = "faction_wars"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+sqlalchemy = "^2.0.29"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
