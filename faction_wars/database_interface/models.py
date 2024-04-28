@@ -5,6 +5,7 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy import String,ForeignKey, Enum , JSON
 
 from faction_wars.races.race_enum import RaceEnum
+from faction_wars.troops.unit_stance import UnitStanceEnum
 
 Base = declarative_base()
 
@@ -40,9 +41,16 @@ class City(Base):
     
     player : Mapped['Player'] = relationship('Player', back_populates = 'players' ,uselist = False)
     
+    owned_garrisons : Mapped[list['Garrison']] = relationship('Garrison' , back_populates= 'garrisons')
 class Garrison(Base):
     __tablename__ = 'garrisons'
     
     id : Mapped[int] = mapped_column(primary_key= True)
-    
+    stance : Mapped[Enum[UnitStanceEnum]]
     troop_json : Mapped[JSON] = mapped_column(type_=JSON,nullable= False)
+    owner_city_id : Mapped[int] = mapped_column(ForeignKey('cities.id'))
+    owner_city : Mapped['City'] = relationship('City',back_populates= 'cities',uselist = False)
+    
+    map_location_x : Mapped[int]
+    map_location_y : Mapped[int]
+    
